@@ -1,0 +1,85 @@
+trigger:
+  - master
+
+pr: none
+
+resources:
+  repositories:
+    - repository: templates
+      endpoint: "Bitbucket - ecardenasc"
+      name: ibkteam/dso-iac-template
+      ref: refs/tags/v0.0.4
+      type: bitbucket
+
+variables:
+  - group: terraform-sample-global
+  - name: terraform_version
+    value: "1.5.2"
+  - name: remote_backend_rg_name
+    value: "rg-terraformstate"
+  - name: remote_backend_storage_account_name
+    value: "terraformstatedemoapp"
+  - name: remote_backend_container_name
+    value: "tfstate"
+  - name: remote_backend_key
+    value: "terraform.tfstate"
+  - name: remote_backend_service_connection
+    value: "sceu2c011dsosnbx01"
+  - name: azurerm_account_service_connection
+    value: "sceu2c011dsosnbx01"
+  - name: terraform_var_file_path_dev
+    value: "terraform.dev.tfvars"
+  - name: terraform_var_file_path_uat
+    value: "terraform.uat.tfvars"
+  - name: terraform_var_file_path_prod
+    value: "terraform.prod.tfvars"
+  - name: terraform_workspace_name_dev
+    value: "dev"
+  - name: terraform_workspace_name_uat
+    value: "uat"
+  - name: terraform_workspace_name_prod
+    value: "prod"
+
+pool:
+  vmImage: "ubuntu-22.04"
+
+stages:
+  - stage: DEV
+    jobs:
+      - job: "TerraformApply"
+        steps:
+          - template: templates/terraform/ci-cd/ci-cd.yaml@templates
+            parameters:
+              terraform_version: ${{ variables.terraform_version }}
+              remote_backend_rg_name: ${{ variables.remote_backend_rg_name }}
+              remote_backend_storage_account_name: ${{ variables.remote_backend_storage_account_name }}
+              remote_backend_container_name: ${{ variables.remote_backend_container_name }}
+              remote_backend_key: ${{ variables.remote_backend_key }}
+              remote_backend_service_connection: ${{ variables.remote_backend_service_connection }}
+              azurerm_account_service_connection: ${{ variables.azurerm_account_service_connection }}
+              terraform_var_file_path: ${{ variables.terraform_var_file_path_dev }}
+              terraform_workspace_name: ${{ variables.terraform_workspace_name_dev }}
+              terraform_secrets:
+                TF_VAR_db_password: $(db_password)
+              terraform_token_artifactory: $(artifactory_token)
+              terraform_token_cloud: $(terraform_token_cloud)
+
+  - stage: UAT
+    jobs:
+      - job: "TerraformApply"
+        steps:
+          - template: templates/terraform/ci-cd/ci-cd.yaml@templates
+            parameters:
+              terraform_version: ${{ variables.terraform_version }}
+              remote_backend_rg_name: ${{ variables.remote_backend_rg_name }}
+              remote_backend_storage_account_name: ${{ variables.remote_backend_storage_account_name }}
+              remote_backend_container_name: ${{ variables.remote_backend_container_name }}
+              remote_backend_key: ${{ variables.remote_backend_key }}
+              remote_backend_service_connection: ${{ variables.remote_backend_service_connection }}
+              azurerm_account_service_connection: ${{ variables.azurerm_account_service_connection }}
+              terraform_var_file_path: ${{ variables.terraform_var_file_path_uat }}
+              terraform_workspace_name: ${{ variables.terraform_workspace_name_uat }}
+              terraform_secrets:
+                TF_VAR_db_password: $(db_password)
+              terraform_token_artifactory: $(artifactory_token)
+              terraform_token_cloud: $(terraform_token_cloud)
