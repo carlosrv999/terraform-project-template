@@ -6,8 +6,8 @@ pr: none
 resources:
   repositories:
     - repository: templates
-      endpoint: "Bitbucket - ecardenasc"
-      name: ibkteam/dso-iac-template
+      endpoint: "Bitbucket - carlosrv125"
+      name: carlosrv125/dso-iac-template
       ref: refs/tags/v0.0.4
       type: bitbucket
 
