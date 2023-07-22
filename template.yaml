@@ -125,7 +125,7 @@ spec:
         description: This is ${{ parameters.component_id }}
         repoVisibility: private
         repoUrl: ${{ parameters.repoUrl }}
-        defaultBranch: main
+        defaultBranch: master
 
     - id: register
       name: Register
