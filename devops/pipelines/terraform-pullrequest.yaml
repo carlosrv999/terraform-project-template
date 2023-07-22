@@ -32,7 +32,7 @@ stages:
               remote_backend_storage_account_name: ${{ variables.remote_backend_storage_account_name }}
               remote_backend_container_name: ${{ variables.remote_backend_container_name }}
               remote_backend_key: ${{ variables.remote_backend_key }}
-              remote_backend_service_connection: "$(remote_backend_service_connection)"
+              remote_backend_service_connection: ${{ variables.remote_backend_service_connection }}
               azurerm_account_service_connection: ${{ variables.azurerm_account_service_connection }}
               terraform_var_file_path: ${{ variables.terraform_var_file_path }}
               terraform_workspace_name: ${{ variables.terraform_workspace_name }}
