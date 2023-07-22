@@ -112,11 +112,20 @@ spec:
           bitbucketServiceConnection: ${{ parameters.bitbucketServiceConnection }}
           terraformTokenArtifactory: ${{ parameters.terraformTokenArtifactory }}
 
+    # Mock steps to show how to add more steps
     - id: sample
-      name: Sample action execute
+      name: Create Azure DevOps Variable Group
       action: acme:example
       input:
-        myParameter: CarlosRamirezVera
+        myParameter: Created
+
+    # Mock steps to show how to add more steps
+    - id: sample
+      name: Add Secrets Variables to Variable Group
+      action: acme:example
+      input:
+        myParameter: Added
+
     - id: publish
       name: Publish
       action: publish:bitbucketCloud
