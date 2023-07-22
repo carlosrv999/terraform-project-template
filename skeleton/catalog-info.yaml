@@ -4,6 +4,9 @@ metadata:
   name: ${{ values.component_id | dump }}
   annotations:
     backstage.io/techdocs-ref: dir:.
+    # Uncomment when you have created the pipeline manually in Azure DevOps
+    # dev.azure.com/project: cramirezver
+    # dev.azure.com/build-definition: carlosrv125.api-java-dso-terraform
 spec:
   type: service
   owner: user:guest
