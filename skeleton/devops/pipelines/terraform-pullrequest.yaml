@@ -6,7 +6,7 @@ pr:
 resources:
   repositories:
     - repository: templates
-      endpoint: "Bitbucket - carlosrv125"
+      endpoint: "${{ values.bitbucketServiceConnection }}"
       name: carlosrv125/dso-iac-template
       ref: refs/tags/v0.0.4
       type: bitbucket
@@ -32,8 +32,8 @@ stages:
               remote_backend_storage_account_name: "$(remote_backend_storage_account_name)"
               remote_backend_container_name: "$(remote_backend_container_name)"
               remote_backend_key: "$(remote_backend_key)"
-              remote_backend_service_connection: "sceu2c011dsosnbx01"
-              azurerm_account_service_connection: "sceu2c011dsosnbx01"
+              remote_backend_service_connection: ${{ values.remoteBackendServiceConnection }}
+              azurerm_account_service_connection: ${{ values.azurermAccountServiceConnection }}
               terraform_var_file_path: "$(terraform_var_file_path)"
               terraform_workspace_name: "$(terraform_workspace_name)"
               terraform_secrets:
@@ -54,8 +54,8 @@ stages:
               remote_backend_storage_account_name: "$(remote_backend_storage_account_name)"
               remote_backend_container_name: "$(remote_backend_container_name)"
               remote_backend_key: "$(remote_backend_key)"
-              remote_backend_service_connection: "sceu2c011dsosnbx01"
-              azurerm_account_service_connection: "sceu2c011dsosnbx01"
+              remote_backend_service_connection: ${{ values.remoteBackendServiceConnection }}
+              azurerm_account_service_connection: ${{ values.azurermAccountServiceConnection }}
               terraform_var_file_path: "$(terraform_var_file_path)"
               terraform_workspace_name: "$(terraform_workspace_name)"
               terraform_secrets:

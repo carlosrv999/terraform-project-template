@@ -1,0 +1,143 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: terraform-template
+  title: Terraform IBK Project Template
+  description: Create a new Terraform project for Interbank
+  tags:
+    - recommended
+    - terraform
+    - azure
+    - iac
+spec:
+  owner: carlosrv125@icloud.com
+  type: website
+  parameters:
+    - title: Terraform IBK Project Template
+      required:
+        - component_id
+        - terraformVersion
+        - remoteBackendRgName
+        - remoteBackendStorageAccountName
+        - remoteBackendContainerName
+        - remoteBackendKey
+        - remoteBackendServiceConnection
+        - azurermAccountServiceConnection
+        - bitbucketServiceConnection
+        - terraformTokenArtifactory
+      properties:
+        component_id:
+          title: Name
+          type: string
+          description: Unique name of the application
+          ui:autofocus: true
+          ui:field: EntityNamePicker
+        description:
+          title: Description
+          type: string
+          description: Ayuda a otros entender de que trata la aplicacion.
+        terraformVersion:
+          title: Terraform Version
+          type: string
+          description: Version de Terraform a utilizar
+          default: "1.5.3"
+          enum:
+            - "1.5.3"
+            - "1.5.2"
+            - "1.5.1"
+            - "1.4.6"
+        remoteBackendRgName:
+          title: Remote Backend Resource Group Name
+          type: string
+          description: Nombre del Resource Group donde se encuentra el Storage Account
+        remoteBackendStorageAccountName:
+          title: Remote Backend Storage Account Name
+          type: string
+          description: Nombre del Storage Account donde se encuentra el Container
+        remoteBackendContainerName:
+          title: Remote Backend Container Name
+          type: string
+          description: Nombre del Container donde se encuentra el State
+        remoteBackendKey:
+          title: Remote Backend Key
+          type: string
+          description: Nombre del Key donde se encuentra el State
+        remoteBackendServiceConnection:
+          title: Remote Backend Service Connection
+          type: string
+          description: Service Connection para Storage Account
+        azurermAccountServiceConnection:
+          title: Azurerm Account Service Connection
+          type: string
+          description: Service Connection Azure Account
+        bitbucketServiceConnection:
+          title: Bitbucket Service Connection
+          type: string
+          description: Service Connection para Bitbucket
+        terraformTokenArtifactory:
+          title: Terraform Token Artifactory
+          type: string
+          description: Token para Artifactory
+          ui:widget: password
+        
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - bitbucket.org
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
+          terraformVersion: ${{ parameters.terraformVersion }}
+          remoteBackendRgName: ${{ parameters.remoteBackendRgName }}
+          remoteBackendStorageAccountName: ${{ parameters.remoteBackendStorageAccountName }}
+          remoteBackendContainerName: ${{ parameters.remoteBackendContainerName }}
+          remoteBackendKey: ${{ parameters.remoteBackendKey }}
+          remoteBackendServiceConnection: ${{ parameters.remoteBackendServiceConnection }}
+          azurermAccountServiceConnection: ${{ parameters.azurermAccountServiceConnection }}
+          bitbucketServiceConnection: ${{ parameters.bitbucketServiceConnection }}
+          terraformTokenArtifactory: ${{ parameters.terraformTokenArtifactory }}
+
+    - id: sample
+      name: Sample action execute
+      action: acme:example
+      input:
+        myParameter: CarlosRamirezVera
+    - id: publish
+      name: Publish
+      action: publish:bitbucketCloud
+      input:
+        allowedHosts: ["bitbucket.org"]
+        description: This is ${{ parameters.component_id }}
+        repoVisibility: private
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

@@ -1,7 +1,0 @@
-variables:
-  terraform_var_file_path: "terraform.dev.tfvars"
-  remote_backend_rg_name: "rg-terraformstate"
-  remote_backend_storage_account_name: "terraformstatedemoapp"
-  remote_backend_container_name: "tfstate"
-  remote_backend_key: "terraform.tfstate"
-  terraform_workspace_name: "dev"

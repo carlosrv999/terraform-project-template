@@ -1,0 +1,7 @@
+variables:
+  terraform_var_file_path: "terraform.dev.tfvars"
+  remote_backend_rg_name: "${{ values.remoteBackendRgName }}"
+  remote_backend_storage_account_name: "${{ values.remoteBackendStorageAccountName }}"
+  remote_backend_container_name: "${{ values.remoteBackendContainerName }}"
+  remote_backend_key: "${{ values.remoteBackendKey }}"
+  terraform_workspace_name: "dev"
