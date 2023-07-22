@@ -1,0 +1,9 @@
+variables:
+  terraform_var_file_path: "terraform.prod.tfvars"
+  remote_backend_rg_name: "rg-terraformstate"
+  remote_backend_storage_account_name: "terraformstatedemoapp"
+  remote_backend_container_name: "tfstate"
+  remote_backend_key: "terraform.tfstate"
+  remote_backend_service_connection: "sceu2c011dsosnbx01"
+  azurerm_account_service_connection: "sceu2c011dsosnbx01"
+  terraform_workspace_name: "prod"
