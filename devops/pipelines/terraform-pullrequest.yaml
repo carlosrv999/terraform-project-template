@@ -27,15 +27,15 @@ stages:
         steps:
           - template: templates/terraform/ci/ci.yaml@templates
             parameters:
-              terraform_version: ${{ variables.terraform_version }}
-              remote_backend_rg_name: ${{ variables.remote_backend_rg_name }}
-              remote_backend_storage_account_name: ${{ variables.remote_backend_storage_account_name }}
-              remote_backend_container_name: ${{ variables.remote_backend_container_name }}
-              remote_backend_key: ${{ variables.remote_backend_key }}
-              remote_backend_service_connection: ${{ variables.remote_backend_service_connection }}
-              azurerm_account_service_connection: ${{ variables.azurerm_account_service_connection }}
-              terraform_var_file_path: ${{ variables.terraform_var_file_path }}
-              terraform_workspace_name: ${{ variables.terraform_workspace_name }}
+              terraform_version: "$(terraform_version)"
+              remote_backend_rg_name: "$(remote_backend_rg_name)"
+              remote_backend_storage_account_name: "$(remote_backend_storage_account_name)"
+              remote_backend_container_name: "$(remote_backend_container_name)"
+              remote_backend_key: "$(remote_backend_key)"
+              remote_backend_service_connection: "sceu2c011dsosnbx01"
+              azurerm_account_service_connection: "sceu2c011dsosnbx01"
+              terraform_var_file_path: "$(terraform_var_file_path)"
+              terraform_workspace_name: "$(terraform_workspace_name)"
               terraform_secrets:
                 TF_VAR_db_password: $(db_password)
               terraform_token_artifactory: $(artifactory_token)
@@ -49,15 +49,15 @@ stages:
         steps:
           - template: templates/terraform/ci/ci.yaml@templates
             parameters:
-              terraform_version: ${{ variables.terraform_version }}
-              remote_backend_rg_name: ${{ variables.remote_backend_rg_name }}
-              remote_backend_storage_account_name: ${{ variables.remote_backend_storage_account_name }}
-              remote_backend_container_name: ${{ variables.remote_backend_container_name }}
-              remote_backend_key: ${{ variables.remote_backend_key }}
-              remote_backend_service_connection: ${{ variables.remote_backend_service_connection }}
-              azurerm_account_service_connection: ${{ variables.azurerm_account_service_connection }}
-              terraform_var_file_path: ${{ variables.terraform_var_file_path }}
-              terraform_workspace_name: ${{ variables.terraform_workspace_name }}
+              terraform_version: "$(terraform_version)"
+              remote_backend_rg_name: "$(remote_backend_rg_name)"
+              remote_backend_storage_account_name: "$(remote_backend_storage_account_name)"
+              remote_backend_container_name: "$(remote_backend_container_name)"
+              remote_backend_key: "$(remote_backend_key)"
+              remote_backend_service_connection: "sceu2c011dsosnbx01"
+              azurerm_account_service_connection: "sceu2c011dsosnbx01"
+              terraform_var_file_path: "$(terraform_var_file_path)"
+              terraform_workspace_name: "$(terraform_workspace_name)"
               terraform_secrets:
                 TF_VAR_db_password: $(db_password)
               terraform_token_artifactory: $(artifactory_token)
