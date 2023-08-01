@@ -79,7 +79,7 @@ spec:
           type: string
           description: Token para Artifactory
           ui:widget: password
-        
+
     - title: Choose a location
       required:
         - repoUrl
