@@ -1,7 +1,7 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: terraform-template
+  name: terraform-project-template
   title: Terraform IBK Project Template
   description: Create a new Terraform project for Interbank
   tags:
@@ -11,7 +11,7 @@ metadata:
     - iac
 spec:
   owner: carlosrv125@icloud.com
-  type: website
+  type: service
   parameters:
     - title: Terraform IBK Project Template
       required:
